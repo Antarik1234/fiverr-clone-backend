@@ -47,9 +47,10 @@ app.get('/ip', (request, response) => {
 app.listen(PORT, async () => {
     try {
         await connect();
+        console.log("database connected")
         console.log(`Listening at http://localhost:${PORT}`);
     }
-    catch ({ message }) {
-        console.log(message);
+    catch (err) {
+        console.log(err);
     }
 })
