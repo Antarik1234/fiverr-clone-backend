@@ -13,6 +13,7 @@ const { userRoute, conversationRoute, gigRoute, messageRoute, orderRoute, review
 const app = express();
 
 // Middlewares
+app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
