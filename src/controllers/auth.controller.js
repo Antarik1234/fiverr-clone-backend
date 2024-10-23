@@ -25,14 +25,14 @@ const authRegister = async (request, response) => {
             isSeller,
             phone
         });
-        await user.save();
-
+        const newUser=await user.save();
+        console.log(newUser)
         return response.status(201).send({
             error: false,
             message: 'New user created!'
         });
     }
-    catch({message}) {
+    catch(message) {
         console.log(message)
         if(message.includes('E11000')) {
             return response.status(400).send({
@@ -54,13 +54,14 @@ const authLogin = async (request, response) => {
     try {
         const user = await User.findOne({ username });
         if(!user) {
+            console.log("no user")
             throw CustomException('Check username or password!', 404);
         }
 
         const match = bcrypt.compareSync(password, user.password);
         if(match) {
             const { password, ...data } = user._doc;
-
+            console.log("password matched")
             const token = jwt.sign({
                 _id: user._id,
                 isSeller: user.isSeller
@@ -85,6 +86,8 @@ const authLogin = async (request, response) => {
         throw CustomException('Check username or password!', 404);
     }
     catch({ message, status = 500 }) {
+        console.log("error sign in")
+        console.log(message)
         return response.status(status).send({
             error: true,
             message
