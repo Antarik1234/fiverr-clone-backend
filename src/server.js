@@ -4,6 +4,7 @@ const compression = require('compression');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connect = require('./configs/db');
+const morgan=require('morgan')
 const PORT = 3000;
 
 // Other Route files
@@ -13,7 +14,7 @@ const { userRoute, conversationRoute, gigRoute, messageRoute, orderRoute, review
 const app = express();
 
 // Middlewares
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -47,10 +48,9 @@ app.get('/ip', (request, response) => {
 app.listen(PORT, async () => {
     try {
         await connect();
-        console.log("database connected")
         console.log(`Listening at http://localhost:${PORT}`);
     }
-    catch (err) {
-        console.log(err);
+    catch ({ message }) {
+        console.log(message);
     }
 })
