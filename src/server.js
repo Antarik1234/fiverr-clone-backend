@@ -20,8 +20,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(compression());
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:4173', 'https://fiverr-clone-pi.vercel.app'],
-    credentials: true
+    origin: 'https://fiverr-clone-pi.vercel.app',
+    credentials: true,
+    
 }));
 
 // Other Routes
