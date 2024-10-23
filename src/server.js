@@ -21,7 +21,9 @@ app.use(cookieParser());
 app.use(compression());
 app.use(cors({
     origin: 'https://fiverr-clone-pi.vercel.app',
-    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // if you're using cookies or other credentials
+    allowedHeaders: ['Content-Type', 'Authorization'] 
     
 }));
 
